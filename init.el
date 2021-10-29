@@ -14,12 +14,13 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
+;; basic default
 (setq
- make-backup-files nil ; no file~
- auto-save-default nil ; no #file#
- 
+ make-backup-files nil         ; no file~
+ auto-save-default nil         ; no #file#
+ auto-save-list-file-prefix nil; no auto-save-list dir
  ;; because I only keep one emacs process on one work dir
- create-lockfiles nil) ; no .#file (for file lock)
+ create-lockfiles nil)         ; no .#file (for file lock)
 
 ;; encoding
 ;; UTF-8 as the default coding system
