@@ -85,7 +85,7 @@
   ;; feel free to change default here
   :custom ((leaf-defaults . '(:ensure t :straight t)))
   :config
-  (defcustom leaf-find-unit-regexp ".*([[:space:]]*leaf\-unit[[:space:]]+\\(%s\\)"
+  (defcustom leaf-find-unit-regexp ".*([[:space:]]*leaf-unit[[:space:]]+\\(%s\\)"
   "The regexp used by `leaf-find-with-unir' to search for a leaf block.
 Note it must contain a `%s' at the place where `format'
 should insert the leaf name."
