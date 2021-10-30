@@ -1,0 +1,6 @@
+# pkg source and profile
+elpa/
+straight/
+
+# data file
+var/

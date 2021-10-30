@@ -40,6 +40,6 @@
 
 ;; load init lib
 (add-subdirs-to-load-path
-   (expand-file-name "lisp" user-emacs-directory))
+   (expand-file-name "etc/config" user-emacs-directory))
 
 ;;; init.el ends here
