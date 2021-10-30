@@ -42,4 +42,7 @@
 (add-subdirs-to-load-path
    (expand-file-name "etc/config" user-emacs-directory))
 
+(require 'init-pkg)        ;pkg management
+(require 'init-bas)        ;basic config
+
 ;;; init.el ends here

@@ -83,7 +83,52 @@
 ;; always ensure
 (leaf leaf
   ;; feel free to change default here
-  :custom ((leaf-defaults . '(:ensure t :straight t))))
+  :custom ((leaf-defaults . '(:ensure t :straight t)))
+  :config
+  (defcustom leaf-find-unit-regexp ".*([[:space:]]*leaf\-unit[[:space:]]+\\(%s\\)"
+  "The regexp used by `leaf-find-with-unir' to search for a leaf block.
+Note it must contain a `%s' at the place where `format'
+should insert the leaf name."
+  :type 'regexp
+  :group 'leaf)
+  (require 'find-func)
+(add-to-list
+'find-function-regexp-alist
+'(leaf-unit . leaf-find-unit-regexp))
+
+(defmacro leaf-unit (base &rest body)
+  "do the sexp in body with leaf-bolck name base-unit
+Generate code like (leaf base-name-unit :config body)"
+  (declare (indent 1))
+  (let ((base (intern (format "+unit-%s" `,base))))
+    `(prog1 ',base
+       (leaf-handler-leaf-path ,base)
+       (leaf-handler-leaf-protect ,base ,@body))))
+
+(defun leaf-find-with-unit (truename)
+  "Find the leaf block (and self make -unit) of NAME."
+  (interactive
+   (let ((candidates (delete-dups (mapcar #'car leaf--paths))))
+     (if (not candidates)
+         (error "Leaf has no definition informations")
+       (list (completing-read "Find leaf: " (delete-dups (mapcar #'car leaf--paths)))))))
+  (require 'find-func)
+  (let* ((name (intern truename))
+         (paths (mapcan (lambda (elm) (when (eq name (car elm)) (list (cdr elm)))) leaf--paths))
+         (path (if (= (length paths) 1) (car paths) (completing-read "Select one: " paths)))
+         (location nil))
+    (setq location
+          (if (string-match-p "^+unit" truename)
+              (find-function-search-for-symbol
+               (intern (substring truename +5))
+               'leaf-unit path)
+            (find-function-search-for-symbol name 'leaf path)))
+    (when location
+      (prog1 (pop-to-buffer (car location))
+        (when (cdr location)
+          (goto-char (cdr location)))
+        (run-hooks 'find-function-after-hook)))))
+  )
 ;; dot operator means add iterm to list
 
 ;; Interactive side-bar feature for init.el using leaf.el.
