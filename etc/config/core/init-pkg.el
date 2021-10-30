@@ -118,9 +118,9 @@ Generate code like (leaf base-name-unit :config body)"
          (path (if (= (length paths) 1) (car paths) (completing-read "Select one: " paths)))
          (location nil))
     (setq location
-          (if (string-match-p "^+unit" truename)
+          (if (string-match-p "^+unit-" truename)
               (find-function-search-for-symbol
-               (intern (substring truename +5))
+               (intern (substring truename +6))
                'leaf-unit path)
             (find-function-search-for-symbol name 'leaf path)))
     (when location

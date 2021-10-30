@@ -35,9 +35,11 @@
 		         (condition-case ex
 		             (delete-frame) ('error (setq q t)))
 		         (if q (bas/quit-emacs pfx))))))
+;; os hot key
 ;; set right command key of macOS
 (setq mac-command-modifier 'hyper mac-option-modifier 'meta)
 ;; what different between (kbd "H-v") and [(hyper v)] ?
+;; os shortcut
 (global-set-key (kbd "H-a") #'mark-page)         ; 全选
 (global-set-key (kbd "H-v") #'yank)              ; 粘贴
 (global-set-key (kbd "H-x") #'kill-region)       ; 剪切
@@ -52,7 +54,42 @@
 (delete-selection-mode 1)                 
 ;; use shift to extend select
 (global-set-key (kbd "<S-down-mouse-1>") #'mouse-save-then-kill)
+
+;; os default
+(setq visible-bell t
+      inhibit-compacting-font-caches t  ; Don’t compact font caches during GC.
+      delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder
+      ;; Show path if names are same
+      uniquify-buffer-name-style 'post-forward-angle-brackets)
 )
+
+(leaf-unit editor-bas
+  
+  (setq-default
+   major-mode 'text-mode
+   fill-column 168
+   tab-width 4
+   ;; Permanently indent with spaces, never with TABs
+   indent-tabs-mode nil)
+  
+  (setq
+   adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
+   adaptive-fill-first-line-regexp "^* *$"
+   sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
+   sentence-end-double-space nil)
+  )
+
+;; auto indent
+(leaf aggressive-indent
+  :hook ((emacs-lisp-mode-hook . aggressive-indent-mode)))
+
+;; snippet
+;; `yasnippet'
+(leaf yasnippet
+  :diminish (yas-minor-mode)
+  :hook (after-init-hook . yas-global-mode)
+  :config
+  (leaf yasnippet-snippets))
 
 (provide 'init-bas)
 ;;; init-bas.el ends here
