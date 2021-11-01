@@ -44,5 +44,7 @@
 
 (require 'init-pkg)        ;pkg management
 (require 'init-bas)        ;basic config
+(require 'init-editor)     ;editor feature
+(require 'init-org)
 
 ;;; init.el ends here
