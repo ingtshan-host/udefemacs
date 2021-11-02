@@ -2,13 +2,13 @@
 # name: new-emacs-lisp-file
 # key: ne
 # --
-;;; ${1:`(cond ((buffer-file-name) (file-name-nondirectory (buffer-file-name))) (t ""))`} -*- lexical-binding: t;-*-
+;;; `(cond ((buffer-file-name) (file-name-nondirectory (buffer-file-name))) (t ""))` -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 
-;; $4
+;; $1
 
 ;;; Code:
 $0
-;; (provide '${3:`(cond ((buffer-file-name) (file-name-base (buffer-file-name))) (t ""))`})
-;;; ${2:`(cond ((buffer-file-name) (file-name-nondirectory (buffer-file-name))) (t ""))`} ends here
+;; (provide '`(cond ((buffer-file-name) (file-name-base (buffer-file-name))) (t ""))`)
+;;; `(cond ((buffer-file-name) (file-name-nondirectory (buffer-file-name))) (t ""))` ends here

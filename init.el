@@ -6,6 +6,36 @@
 
 ;;; Code:
 
+;; to for add load-path recursion like -r
+(unless (boundp 'add-subdirs-to-load-path)
+  (defun add-subdirs-to-load-path(dir)
+    "Recursive add directories to `load-path`."
+    (let ((default-directory (file-name-as-directory dir)))
+      (add-to-list 'load-path dir)
+      (normal-top-level-add-subdirs-to-load-path))))
+
+;; quick config
+(defun init-file-other-window()
+  "Open init.el buffer in other window"
+  (interactive)
+  (find-file-other-window
+   (expand-file-name "init.el" user-emacs-directory)))
+
+;; quick install
+(defun pkg/straight-clone-and-build-my-pkg()
+  "Dump Emacs."
+  (interactive)
+  (let ((buf "*my pkg install process*"))
+	(make-process
+	 :name "pkg-install"
+	 :buffer buf
+	 :command
+	 (list "emacs" "--batch" "-q" "-l"
+		   (expand-file-name "pkg-list.el" user-emacs-directory )
+           "--eval" "`(install-my-pkg)`"))
+	(display-buffer buf)))
+
+;; version check
 (when (version< emacs-version "26.1")
   (error "This requires Emacs 26.1 and above!"))
 
@@ -27,24 +57,26 @@
 (when (fboundp 'set-charset-priority)
   (set-charset-priority 'unicode))
 
-;; to for add load-path recursion like -r
-(unless (boundp 'add-subdirs-to-load-path)
-  (defun add-subdirs-to-load-path(dir)
-    "Recursive add directories to `load-path`."
-    (let ((default-directory (file-name-as-directory dir)))
-      (add-to-list 'load-path dir)
-      (normal-top-level-add-subdirs-to-load-path))))
-
 ;; stop emacs automatically editing .emacs
 (setq custom-file (expand-file-name "var/custom.el" user-emacs-directory))
 
 ;; load init lib
 (add-subdirs-to-load-path
-   (expand-file-name "etc/config" user-emacs-directory))
+ (expand-file-name "etc/config" user-emacs-directory))
 
 (require 'init-pkg)        ;pkg management
 (require 'init-bas)        ;basic config
-(require 'init-editor)     ;editor feature
-(require 'init-org)
+(require 'init-editor)     ;basic editor feature
+(require 'init-org)        ;basic org-mode
+;; UI setting
+(require 'init-nano)
+(require 'init-fonts)
 
+(require 'init-company-search)
+
+;; Noting sys
+(require 'init-roam)
+
+;; final
+;; (require 'init-patch)
 ;;; init.el ends here

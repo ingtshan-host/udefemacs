@@ -6,10 +6,11 @@
 
 ;;; Code:
 
-;; optional proxy setup
 (setq url-proxy-services
-      '(("http" . "127.0.0.1:8889")
+      '(("no_proxy" . "^\\(localhost\\|10\\..*\\|192\\.168\\..*\\)")
+        ("http" . "127.0.0.1:8889")
         ("https" . "127.0.0.1:8889")))
+
 ;; setup package archives
 (require 'package)
 (eval-and-compile
