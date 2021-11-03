@@ -180,5 +180,20 @@ Generate code like (leaf base-name-unit :config body)"
   (auto-save-file-name-transforms
    . `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
 
+
+(leaf-unit my-pkg-list
+
+  (defun pkg/my-pkg-list-other-window ()
+    "Other window of pkg-list.el with match current buffer"
+    (interactive)
+    (let ((name (file-name-base (buffer-name))))
+      (find-file-other-window
+       (expand-file-name "pkg-list.el" user-emacs-directory))
+      (goto-char (point-min))
+      (re-search-forward (concat "[[:space:]]*;;[[:space:]]*" name))
+      (match-string-no-properties 0)
+      ))
+  )
+
 (provide 'init-pkg)
 ;;; init-pkg.el ends here
