@@ -92,12 +92,6 @@
 
     (require 'straight)
 
-    (defun noalias-set-github-mirror (oldfunc &rest args)
-      (let ((url (apply oldfunc args)))
-        (replace-regexp-in-string (rx (group "github.com"))
-                                  "github.com.cnpmjs.org" url nil nil 1)))
-    (setq straight-vc-git-default-protocol 'https)
-
     (defvar my-core-package-sources
       '((org-elpa :local-repo nil)
         (melpa
