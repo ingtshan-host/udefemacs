@@ -36,7 +36,7 @@
       :repo "rougier/nano-emacs"))
 
     ;; init-fonts
-    (evalign . nil)
+    (align . nil)
 
     ;; init-company-search
     (vertico . nil)

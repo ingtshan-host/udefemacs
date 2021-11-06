@@ -1,1 +1,10 @@
 Personal configurations that customize my emacs
+
+How to use?
+
+git clone https://github.com/ingtshan/udefemacs.git ~/.emacs.d
+
+emacs --batch -q -l ~/.emacs.d/pkg-list.el
+
+then launch Emacs
+

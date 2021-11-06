@@ -30,10 +30,10 @@
 	 :name "pkg-install"
 	 :buffer buf
 	 :command
+     ;; emacs --batch -q -l /Users/ingtshan/.emacs.d/pkg-list.el
 	 (list "emacs" "--batch" "-q" "-l"
-		   (expand-file-name "pkg-list.el" user-emacs-directory )
-           "--eval" "`(progn (require 'pkg-list) (install-my-pkg))`"))
-	(display-buffer buf)))
+		   (expand-file-name "pkg-list.el" user-emacs-directory ))
+	(display-buffer buf))))
 
 ;; version check
 (when (version< emacs-version "26.1")

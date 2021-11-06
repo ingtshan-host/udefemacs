@@ -27,12 +27,15 @@
         ;; package-gnupghome-dir (expand-file-name "gpg" doom-elpa-dir)
         ;; I omit Marmalade because its packages are manually submitted rather
         ;; than pulled, so packages are often out of date with upstream.
-        package-archives
-        (let ((proto "https"))
-          `(("gnu"   . ,(concat proto "://elpa.gnu.org/packages/"))
-            ("melpa" . ,(concat proto "://melpa.org/packages/"))
-            ("org"   . ,(concat proto "://orgmode.org/elpa/")))))
-  
+        ;; package-archives
+        ;; (let ((proto "https"))
+        ;;   `(("gnu"   . ,(concat proto "://elpa.gnu.org/packages/"))
+        ;;     ("melpa" . ,(concat proto "://melpa.org/packages/"))
+        ;;     ("org"   . ,(concat proto "://orgmode.org/elpa/"))))
+        ;; emacs-china
+        package-archives '(("gnu"   . "http://elpa.zilongshanren.com/gnu/")
+                           ("melpa" . "http://elpa.zilongshanren.com/melpa/"))
+        )
   ;; (add-to-list 'package-archives
   ;;              `("elpa-mirror" .
   ;;                ,(expand-file-name "elpa-mirror/packages"
@@ -53,6 +56,14 @@
 	    straight-use-package-by-default t
 	    straight-recipes-gnu-elpa-use-mirror t
         straight-recipes-emacsmirror-use-mirror t)
+
+  ;; use github.com mirror from .cnpmjs.org
+  (setq straight-vc-git-default-protocol 'https)
+  (advice-add 'straight-vc-git--encode-url :around #'noalias-set-github-mirror)
+  (defun noalias-set-github-mirror (oldfunc &rest args)
+    (let ((url (apply oldfunc args)))
+      (replace-regexp-in-string (rx (group "github.com"))
+                                "github.com.cnpmjs.org" url nil nil 1)))
   
   ;; loading bootstrap file
   (let ((bootstrap-file
@@ -62,36 +73,30 @@
 	    (bootstrap-version 5))
     
     (unless (file-exists-p bootstrap-file)
+      
       (with-current-buffer
           (url-retrieve-synchronously
-           ;; from ghproxy.com
-           "https://ghproxy.com/https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+           ;; "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+	       "https://ghproxy.com/https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"  
            'silent 'inhibit-cookies)
-        (goto-char (point-max))
-        ;; add ghproxy.com
-        (save-excursion
+	    
+	    (save-excursion
           (goto-char (point-min))
-          (while (search-forward "https://raw.githubusercontent.com/" nil t)
-            (replace-match
-             "https://ghproxy.com/https://raw.githubusercontent.com/")))
+          (while (search-forward "https://raw.githubusercontent.com" nil t)
+            (replace-match "https://ghproxy.com/https://raw.githubusercontent.com")))
+	    
         (goto-char (point-max))
 	    (eval-print-last-sexp)))
     
     (load bootstrap-file nil 'nomessage)
 
     (require 'straight)
-    
-    ;; https://emacs-china.org/t/straight-el-github-com-github-com-cnpmjs-org/18029
-    (advice-add 'straight-vc-git--encode-url
-                :around #'noalias-set-github-mirror)
-    
+
     (defun noalias-set-github-mirror (oldfunc &rest args)
       (let ((url (apply oldfunc args)))
         (replace-regexp-in-string (rx (group "github.com"))
                                   "github.com.cnpmjs.org" url nil nil 1)))
-    
     (setq straight-vc-git-default-protocol 'https)
-    ;;(setq straight-vc-git-default-protocol 'git)
 
     (defvar my-core-package-sources
       '((org-elpa :local-repo nil)
@@ -117,9 +122,7 @@
       ;; install by straight
 	  (straight-use-package 'leaf)
 	  (straight-use-package 'leaf-keywords)
-      (straight-use-package 'diminish)
-      
-      )
+      (straight-use-package 'diminish))
     (leaf-keywords-init)))
 
 ;; leaf.el setup
