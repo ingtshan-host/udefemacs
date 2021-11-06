@@ -30,5 +30,10 @@
     (setq face-font-rescale-alist
           (list `(,en-font . 1) `(,zh-font . ,rescale)))))
 
+;; 解决中英混输表格对齐问题
+(leaf valign
+  :hook ((org-mode-hook . valign-mode)))
+
+
 (provide 'init-fonts)
 ;;; init-fonts.el ends here

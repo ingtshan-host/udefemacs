@@ -36,6 +36,9 @@
       :repo "rougier/nano-emacs"))
 
     ;; init-fonts
+    (evalign . nil)
+
+    ;; init-company-search
     (vertico . nil)
     (posframe . nil)
     (vertico-posframe
@@ -43,7 +46,8 @@
      (vertico-posframe
       :type git :host github
       :repo "tumashu/vertico-posframe"))
-
+    (which-key . nil)
+    (which-key-posframe . nil)
     (embark . nil)
     (consult . nil)
     (embark-consult . nil)
@@ -57,6 +61,12 @@
     ;; init-roam
     (org-roam . nil)
 
+    ;; init-bujo
+    
+    ;; init-evil
+    (general . nil)
+    (evil . nil)
+    
     ;; init-patch
 
     
@@ -66,29 +76,30 @@
 
 (defun install-my-pkg()
   "install all my pkg"
-  ;;clone all
-  (dolist (pkg my-pkg-list)
-    (straight-use-package
-     (if (cdr pkg) `(quote ,(cdr pkg)) (car pkg))
-     nil t))
-  ;; load to path
-  ;; load init lib
-  (add-subdirs-to-load-path
-   (expand-file-name "straight/repos" user-emacs-directory))
+  (prog1 "All done"
+    ;;clone all
+    (dolist (pkg my-pkg-list)
+      (straight-use-package
+       (if (cdr pkg) `(quote ,(cdr pkg)) (car pkg))
+       nil t))
+    ;; load to path
+    ;; load init lib
+    (add-subdirs-to-load-path
+     (expand-file-name "straight/repos" user-emacs-directory))
 
-  ;; build all
-  (dolist (pkg my-pkg-list)
-    ;; only clone
-    (straight-use-package
-     (if (cdr pkg) `(quote ,(cdr pkg)) (car pkg))))
+    ;; build all
+    (dolist (pkg my-pkg-list)
+      ;; only clone
+      (straight-use-package
+       (if (cdr pkg) `(quote ,(cdr pkg)) (car pkg))))
 
-  ;; leaf load
-  (dolist (pkg my-pkg-list)    
-    (if (cdr pkg)
-        (eval `(leaf ,(car pkg) :ensure nil :straight ,(cdr pkg)))
-      (eval `(leaf ,(car pkg)))))
-  
-  (message "All done"))
+    ;; leaf load
+    ;; (dolist (pkg my-pkg-list)    
+    ;;   (if (cdr pkg)
+    ;;       (eval `(leaf ,(car pkg) :ensure nil :straight ,(cdr pkg)))
+    ;;     (eval `(leaf ,(car pkg)))))
+    );;manually do here
+  )
 
 ;; to for add load-path recursion like -r
 (unless (boundp 'add-subdirs-to-load-path)
@@ -104,5 +115,7 @@
 
 (require 'init-pkg)
 
-(provide 'pkg-list)
+(install-my-pkg)
+
+;;(provide 'pkg-list)
 ;;; pkg-list.el ends here

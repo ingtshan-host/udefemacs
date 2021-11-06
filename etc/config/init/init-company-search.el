@@ -68,6 +68,23 @@
      (background-color . "#333E50"))
    ))
 
+(leaf which-key
+  :config
+  (which-key-mode))
+
+(leaf which-key-posframe
+  :custom
+  (which-key-posframe-poshandler
+   .
+   ;;#'posframe-poshandler-frame-center
+   #'posframe-poshandler-p0.5p0-to-f0.5p1
+   )
+  (which-key-posframe-parameters
+   .
+   '((background-color . "#333E50")))
+  :config
+  (which-key-posframe-mode))
+
 ;; Use the `orderless' completion style.
 (leaf orderless
   :custom

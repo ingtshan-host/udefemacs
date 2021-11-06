@@ -7,12 +7,20 @@
 ;;; Code:
 
 ;; org-basic
+
 (leaf org
   :require indent-guide
   
   :hook((org-mode-hook . org-indent-mode)
-        (org-mode-hook . indent-guide-mode))
+        (org-mode-hook . indent-guide-mode)
+        (org-mode-hook . visual-line-mode ))
   
+  :bind((org-mode-map
+         ("H-k" . ns/org-kill-link-at-point))
+        (org-mode-map
+         ("H-j c" . bujo/check-task))
+        (org-mode-map
+         ("H-j t" . bujo/set-current-task-state)))
   :config
   ;; when opening a org file, don't collapse headings
   (setq org-startup-folded nil)
@@ -32,6 +40,16 @@
   
   ;; (setq org-directory "~/iCloud/org/")
   ;; (setq org-agenda-files '("~/iCloud/org/"))
+
+  (defun ns/org-kill-link-at-point ()
+    (interactive)
+    (when (eq major-mode 'org-mode)
+      (let* ((context (org-element-context))
+             (type (org-element-type context))
+             (beg (org-element-property :begin context))
+             (end (org-element-property :end context)))
+        (when (eq type 'link)
+          (kill-region beg end)))))
   )
 
 (leaf org-persist

@@ -15,14 +15,14 @@
       (normal-top-level-add-subdirs-to-load-path))))
 
 ;; quick config
-(defun init-file-other-window()
+(defun config/init-file-other-window()
   "Open init.el buffer in other window"
   (interactive)
   (find-file-other-window
    (expand-file-name "init.el" user-emacs-directory)))
 
 ;; quick install
-(defun pkg/straight-clone-and-build-my-pkg()
+(defun config/straight-clone-and-build-my-pkg()
   "Dump Emacs."
   (interactive)
   (let ((buf "*my pkg install process*"))
@@ -32,7 +32,7 @@
 	 :command
 	 (list "emacs" "--batch" "-q" "-l"
 		   (expand-file-name "pkg-list.el" user-emacs-directory )
-           "--eval" "`(install-my-pkg)`"))
+           "--eval" "`(progn (require 'pkg-list) (install-my-pkg))`"))
 	(display-buffer buf)))
 
 ;; version check
@@ -76,6 +76,9 @@
 
 ;; Noting sys
 (require 'init-roam)
+(require 'init-bujo)
+
+(require 'init-evil)
 
 ;; final
 ;; (require 'init-patch)
