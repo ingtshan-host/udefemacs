@@ -6,6 +6,37 @@
 
 ;;; Code:
 
+;; version check
+(when (version< emacs-version "26.1")
+  (error "This requires Emacs 26.1 and above!"))
+
+;; encoding
+;; UTF-8 as the default coding system
+(when (fboundp 'set-charset-priority)
+  (set-charset-priority 'unicode))
+
+;; very basic default
+
+;; -1 for disable
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(fset 'yes-or-no-p 'y-or-n-p)
+
+(setq
+ make-backup-files nil         ; no file~
+ auto-save-default nil         ; no #file#
+ auto-save-list-file-prefix nil; no auto-save-list dir
+ ;; because I only keep one emacs process on one work dir
+ create-lockfiles nil          ; no .#file (for file lock)
+ )
+
+
+;; stop emacs automatically editing .emacs
+(setq custom-file (expand-file-name "var/custom.el" user-emacs-directory))
+
+;; tool function
+
 ;; to for add load-path recursion like -r
 (unless (boundp 'add-subdirs-to-load-path)
   (defun add-subdirs-to-load-path(dir)
@@ -33,32 +64,7 @@
      ;; emacs --batch -q -l /Users/ingtshan/.emacs.d/pkg-list.el
 	 (list "emacs" "--batch" "-q" "-l"
 		   (expand-file-name "pkg-list.el" user-emacs-directory ))
-	(display-buffer buf))))
-
-;; version check
-(when (version< emacs-version "26.1")
-  (error "This requires Emacs 26.1 and above!"))
-
-;; -1 for disable
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-
-;; basic default
-(setq
- make-backup-files nil         ; no file~
- auto-save-default nil         ; no #file#
- auto-save-list-file-prefix nil; no auto-save-list dir
- ;; because I only keep one emacs process on one work dir
- create-lockfiles nil)         ; no .#file (for file lock)
-
-;; encoding
-;; UTF-8 as the default coding system
-(when (fboundp 'set-charset-priority)
-  (set-charset-priority 'unicode))
-
-;; stop emacs automatically editing .emacs
-(setq custom-file (expand-file-name "var/custom.el" user-emacs-directory))
+	 (display-buffer buf))))
 
 ;; load init lib
 (add-subdirs-to-load-path
