@@ -80,6 +80,9 @@
 
 (require 'init-company-search)
 
+;; Programming setting
+(require 'init-denv)
+
 ;; Noting sys
 (require 'init-roam)
 (require 'init-bujo)
