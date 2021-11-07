@@ -43,8 +43,9 @@
     "nr"    '(ns/org-roam-rg-search :wk "rg search your roam note")
     "nf"    '(ns/org-roam-rg-file-search :wk "find roam file")
     "nb"    '(:wk "note bujo")
-    "nbj"   '(bujo/today-another-window :wk "bujo jump today")
-    "nbm"   '(bujo/month-page-another-window :wk "bujo current moth")
+    "nbj"   '(bujo/today-other-window :wk "bujo jump today")
+    "nbf"   '(bujo/find-task :wk "bujo task current moth")
+    "nbm"   '(bujo/month-page-other-window :wk "bujo current moth")
     )
   ;; 将,键设置为另一个leader
   ;; 与编辑或编辑模式强相关的操作，诸如：org-mode下打开org-pomodoro、org-clock等
@@ -74,6 +75,14 @@
     "$" 'org-end-of-line
     "^" 'org-beginning-of-line 
     (kbd "TAB") 'org-cycle);; ditto
+  
+  (setq evil-normal-state-cursor  '("DarkGoldenrod2" box)
+        evil-insert-state-cursor  '("chartreuse3" (bar . 2))
+        evil-emacs-state-cursor   '("SkyBlue2" box)
+        evil-replace-state-cursor '("chocolate" (hbar . 2))
+        evil-visual-state-cursor  '("gray" (hbar . 2))
+        evil-motion-state-cursor  '("plum3" box))
+  
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'evil-normal-state)
   (evil-mode 1));; end of leaf evil
