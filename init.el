@@ -79,10 +79,10 @@
 (require 'init-fonts)
 
 (require 'init-company-search)
-(require 'init-icon)
+(require 'init-icon)       ;icon and emoj
 
 ;; Programming setting
-(require 'init-denv)        ;basic tool env
+(require 'init-denv)       ;basic tool env
 
 ;; Noting sys
 (require 'init-roam)

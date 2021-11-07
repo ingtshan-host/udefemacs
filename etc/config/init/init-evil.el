@@ -19,6 +19,7 @@
     "ff"    'find-file
     "fo"    'find-file-other-window
     "fs"    '(save-buffer :wk "file save")
+    "fS"    '(save-some-buffers :wk "save all modified buffers")
     "fl"    'leaf-find-with-unit
     "fi"    'config/init-file-other-window
     "fp"    '(:wk "projectile operation")
@@ -32,11 +33,12 @@
     "bw"    '(kill-this-buffer :wk "like H-w but with kill this buffer")
     "bs"    '(consult-buffer :wk "swith to buffer in current window")
     "bp"    'consult-projectile
+    "bk"    'kill-buffer
     ;;"bc"    '(switch-to-scratch-buffer :wk "*scratch*")
     ;;"bm"    'switch-to-message-buffer
     "g"     '(:wk "git operation")
     "gg"    'magit
-
+    "w"     '(ace-window :wk "window operation")
     ;;"w/"    'split-window-right
     ;;"w-"    'split-window-below
     ;;"ad"    'dired

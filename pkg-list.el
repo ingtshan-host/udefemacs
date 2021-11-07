@@ -21,6 +21,9 @@
     (aggressive-indent . nil)
     (yasnippet . nil)
     (yasnippet-snippets . nil)
+    (transpose-frame . nil)
+    (ace-window . nil)
+    (super-save . nil)
 
     ;; init-editor
     (indent-guide . nil)

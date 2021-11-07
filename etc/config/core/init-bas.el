@@ -91,5 +91,47 @@
   :config
   (leaf yasnippet-snippets))
 
+(leaf transpose-frame)
+
+;; window movement
+(leaf ace-window
+  :preface
+  (defvar aw-dispatch-alist
+    '((?x aw-delete-window "Delete Window")
+      (?m aw-swap-window "Swap Windows")
+      (?M aw-move-window "Move Window")
+      (?c aw-copy-window "Copy Window")
+      ;; with cursor move
+      (?s aw-switch-buffer-in-window "Select Buffer")
+      (?n aw-flip-window)
+      ;; without cursor move
+      (?b aw-switch-buffer-other-window "Switch Buffer Other Window")
+      (?e aw-execute-command-other-window "Execute Command Other Window")
+      (?F aw-split-window-fair "Split Fair Window")
+      (?v aw-split-window-vert "Split Vert Window")
+      (?h aw-split-window-horz "Split Horz Window")
+      (?o delete-other-windows "Delete Other Windows")
+      (?T aw-transpose-frame "Transpose Frame")
+      ;; ?i ?r ?t are used by hyperbole.el
+      (?? aw-show-dispatch-help))
+    "List of actions for `aw-dispatch-default'.
+Each action is a list of either:
+  (char function description) where function takes a single window argument
+or
+  (char function) where function takes no argument and the description is omitted.")
+  :config
+  (custom-set-faces
+   '(aw-leading-char-face
+     ((t (:foreground "orange" :height 2.5)))))
+  
+  (setq aw-keys '(?a ?u ?d ?f ?g ?i ?j ?k ?l)
+        aw-dispatch-always t
+        aw-background nil))
+
+;; save file when unfocus
+(leaf super-save
+  :config
+  (super-save-mode +1))
+
 (provide 'init-bas)
 ;;; init-bas.el ends here

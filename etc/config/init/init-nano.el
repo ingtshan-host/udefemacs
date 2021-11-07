@@ -26,7 +26,7 @@
     :load-path `,(expand-file-name "straight/build/nano-emacs" user-emacs-directory)
     :ensure nil
     :straight nil
-    :require nano-theme-dark nano-theme nano-modeline nano-help
+    :require nano-theme-dark nano-theme nano-help nano-modeline
     :custom ((nano-font-family-monospaced . "Fira Code")
              (nano-font-size . 16))
     :config

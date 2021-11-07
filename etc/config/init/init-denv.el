@@ -41,5 +41,20 @@
              :repo "OlMon/consult-projectile"
              :branch "master"))
 
+(leaf-unit read-only-protect
+  ;; Define a read-only directory class
+  (dir-locals-set-class-variables
+   'read-only
+   '((nil . ((buffer-read-only . t)))))
+
+  ;; Associate directories with the read-only class
+  (dolist (dir-true-name
+           (list
+            ;; add protect dir here
+            (expand-file-name "straight/repos" user-emacs-directory)
+            ))    
+    (dir-locals-set-directory-class
+     dir-true-name 'read-only)))
+
 (provide 'init-denv)
 ;;; init-denv.el ends here
