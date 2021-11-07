@@ -24,6 +24,7 @@
 
     ;; init-editor
     (indent-guide . nil)
+    (markdown-mode . nil)
 
     ;; init-org
     (org . nil)    
