@@ -20,6 +20,7 @@
     "fo"    'find-file-other-window
     "fs"    '(save-buffer :wk "file save")
     "fl"    'leaf-find-with-unit
+    "fi"    'config/init-file-other-window
     ;;"fed"   'open-init-file
     "b"     '(:wk "buffer operation")
     "bo"    'switch-to-buffer-other-window
@@ -27,6 +28,8 @@
     "bs"    '(consult-buffer :wk "swith to buffer in current window")
     ;;"bc"    '(switch-to-scratch-buffer :wk "*scratch*")
     ;;"bm"    'switch-to-message-buffer
+    "g"     '(:wk "git operation")
+    "gg"    'magit
 
     ;;"w/"    'split-window-right
     ;;"w-"    'split-window-below
