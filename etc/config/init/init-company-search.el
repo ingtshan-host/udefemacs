@@ -292,5 +292,12 @@
   :hook (global-company-mode-hook . company-quickhelp-mode)
   :custom ((company-quickhelp-delay . 0.5)))
 
+;; (leaf consult-company)
+
+;; A consulting-read interface for yasnippet.
+;; (leaf consult-yasnippet)
+
+
+
 (provide 'init-company-search)
 ;;; init-company-search.el ends here

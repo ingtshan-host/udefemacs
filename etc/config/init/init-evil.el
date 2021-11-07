@@ -21,11 +21,17 @@
     "fs"    '(save-buffer :wk "file save")
     "fl"    'leaf-find-with-unit
     "fi"    'config/init-file-other-window
+    "fp"    '(:wk "projectile operation")
+    "fpf"   'projectile-find-file
+    "fpd"   'projectile-find-dir
+    "fps"   'projectile-switch-project
+    "fpr"   'denv/projectile-rg-search
     ;;"fed"   'open-init-file
     "b"     '(:wk "buffer operation")
     "bo"    'switch-to-buffer-other-window
     "bw"    '(kill-this-buffer :wk "like H-w but with kill this buffer")
     "bs"    '(consult-buffer :wk "swith to buffer in current window")
+    "bp"    'consult-projectile
     ;;"bc"    '(switch-to-scratch-buffer :wk "*scratch*")
     ;;"bm"    'switch-to-message-buffer
     "g"     '(:wk "git operation")
@@ -65,6 +71,9 @@
     "b"   '(:wk "bujo wf")
     "bc"  'bujo/check-task
     "bt"  'bujo/set-current-task-state
+    "e"   '(:wk "eval operation")
+    "ee"  'eval-last-sexp
+    "eb"  'eval-buffer
     )
   )
 

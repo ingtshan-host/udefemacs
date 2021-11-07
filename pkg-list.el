@@ -57,7 +57,24 @@
     (corfu . nil)
     (company . nil)
     (company-quickhelp . nil)
+    (consult-yasnippet . nil)
+    (consult-company . nil)
 
+    ;; init-icon
+    (all-the-icons . nil)
+    (all-the-icons-completion . nil)
+
+    ;; init-denv
+    (magit . nil)
+    (evil-magit . nil)
+    (projectile . nil)
+    (consult-projectile
+     .
+     (consult-projectile
+      :type git :host gitlab
+      :repo "OlMon/consult-projectile"
+      :branch "master"))
+    
     ;; init-roam
     (org-roam . nil)
 
