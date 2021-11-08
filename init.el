@@ -35,8 +35,6 @@
 ;; stop emacs automatically editing .emacs
 (setq custom-file (expand-file-name "var/custom.el" user-emacs-directory))
 
-;; tool function
-
 ;; to for add load-path recursion like -r
 (unless (boundp 'add-subdirs-to-load-path)
   (defun add-subdirs-to-load-path(dir)
@@ -45,30 +43,29 @@
       (add-to-list 'load-path dir)
       (normal-top-level-add-subdirs-to-load-path))))
 
-;; quick config
-(defun config/init-file-other-window()
-  "Open init.el buffer in other window"
-  (interactive)
-  (find-file-other-window
-   (expand-file-name "init.el" user-emacs-directory)))
-
-;; quick install
-(defun config/straight-clone-and-build-my-pkg()
-  "Dump Emacs."
-  (interactive)
-  (let ((buf "*my pkg install process*"))
-	(make-process
-	 :name "pkg-install"
-	 :buffer buf
-	 :command
-     ;; emacs --batch -q -l /Users/ingtshan/.emacs.d/pkg-list.el
-	 (list "emacs" "--batch" "-q" "-l"
-		   (expand-file-name "pkg-list.el" user-emacs-directory ))
-	 (display-buffer buf))))
+;; for macOS
+;; fresh shell env once for all
+(mapc
+ (lambda (path)
+   (add-to-list 'load-path path))
+ (list ;; path need to load here
+  (expand-file-name "etc/extend/exec-path-from-shell" user-emacs-directory)
+  (expand-file-name "etc/extend/cache-path-from-shell" user-emacs-directory)))
+(require 'cache-path-from-shell)
 
 ;; load init lib
 (add-subdirs-to-load-path
  (expand-file-name "etc/config" user-emacs-directory))
+
+;; load extern lib
+;; sometime you need compile mannualy
+;; In Dired buffers M-x `dired-do-byte-compile'
+;; or excute `make'
+(mapc
+ (lambda (path)
+   (add-to-list 'load-path path))
+ (list ;; path need to load here
+  (expand-file-name "etc/extend/reveal-in-osx-finder" user-emacs-directory)))
 
 (require 'init-pkg)        ;pkg management
 (require 'init-bas)        ;basic config
@@ -92,4 +89,28 @@
 
 ;; final
 ;; (require 'init-patch)
+
+;; useful function
+
+;; quick config
+(defun config/init-file-other-window()
+  "Open init.el buffer in other window"
+  (interactive)
+  (find-file-other-window
+   (expand-file-name "init.el" user-emacs-directory)))
+
+;; quick install
+(defun config/straight-clone-and-build-my-pkg()
+  "Dump Emacs."
+  (interactive)
+  (let ((buf "*my pkg install process*"))
+	(make-process
+	 :name "pkg-install"
+	 :buffer buf
+	 :command
+     ;; emacs --batch -q -l /Users/ingtshan/.emacs.d/pkg-list.el
+	 (list "emacs" "--batch" "-q" "-l"
+		   (expand-file-name "pkg-list.el" user-emacs-directory ))
+	 (display-buffer buf))))
+
 ;;; init.el ends here

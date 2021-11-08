@@ -1,3 +1,15 @@
 [submodule "log"]
 	path = log
 	url = git@github.com:ingtshan/udefemacs-note.git
+[submodule "etc/tool/org2opml-mindnode"]
+	path = etc/tool/org2opml-mindnode
+	url = git@github.com:ingtshan/org2opml-mindnode.git
+[submodule "etc/extend/reveal-in-osx-finder"]
+	path = etc/extend/reveal-in-osx-finder
+	url = git@github.com:ingtshan/reveal-in-osx-finder.git
+[submodule "etc/extend/exec-path-from-shell"]
+	path = etc/extend/exec-path-from-shell
+	url = git@github.com:purcell/exec-path-from-shell.git
+[submodule "etc/extend/cache-path-from-shell"]
+	path = etc/extend/cache-path-from-shell
+	url = git@github.com:manateelazycat/cache-path-from-shell.git

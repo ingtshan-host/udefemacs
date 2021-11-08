@@ -56,5 +56,29 @@
     (dir-locals-set-directory-class
      dir-true-name 'read-only)))
 
+;; shell
+(leaf vterm
+  :require cl-lib
+  :config
+  (setq vterm-shell "zsh")
+  (add-hook 'vterm-set-title-functions 'denv/vterm--rename-buffer-as-title)
+
+  ;;; Functions
+
+  (defun denv/vterm-cd (dir)
+    "cd to DIR."
+    (when (derived-mode-p 'vterm-mode)
+      (vterm-send-key "u" nil nil t)
+      (execute-kbd-macro (format "cd %s
+" dir))))
+
+  (defun denv/vterm-current-dir-other-window()
+    "use one vterm process and cd to current dir"
+    (interactive)
+    (let ((dir default-directory))
+      (vterm-other-window)
+      (denv/vterm-cd dir)))
+  )
+
 (provide 'init-denv)
 ;;; init-denv.el ends here

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: org-mindnode-root
+# key:nr
+# --
+#+author: ingtshan
+#+root: $0

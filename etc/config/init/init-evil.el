@@ -6,7 +6,10 @@
 
 ;;; Code:
 
+
 (leaf general
+  :require reveal-in-osx-finder ;; for macOS
+  :after evil
   :config
   ;; 将<SPC>设为leader键之一
   ;; 与当前编辑模式或编辑无关的通用操作，诸如打开文件、保存文件、切换minor-mode等
@@ -46,6 +49,8 @@
     ;;"tn"    'linum-mode
     ;;"wc"    'count-words
     ;;"nw"    'widen
+    "o"     '(:wk "OS command")
+    "of"    'reveal-in-osx-finder
     "!"     'shell-command
     "n"     '(:wk "note org-roam and bujo")
     "nn"    '(org-roam-node-find :wk "node")
@@ -63,6 +68,7 @@
   (general-create-definer gaeric-comma-leader-def
     :prefix ","
     :states '(normal visual))
+  
   (gaeric-comma-leader-def
     "c"   '(:wk "copy-paset-killring")
     "cc"  'copy-to-x-clipboard
@@ -77,29 +83,36 @@
     "ee"  'eval-last-sexp
     "eb"  'eval-buffer
     )
+
+  ;; org special
+  (general-evil-define-key '(normal visual) org-mode-map
+    ",g"   '(:wk "org-mode writing operation")
+    ",gp"  'org-promote-subtree
+    ",gd"  'org-demote-subtree
+    )
   )
 
-(leaf evil
-  :require evil evil-core evil-common
-  :config
-  ;; 切换至normal模式时，光标会回退一位（与vim行为保持一致）
-  (setq evil-move-cursor-back t)
-  (evil-declare-key 'normal org-mode-map
-    ;;smarter behaviour on headlines 
-    "$" 'org-end-of-line
-    "^" 'org-beginning-of-line 
-    (kbd "TAB") 'org-cycle);; ditto
-  
-  (setq evil-normal-state-cursor  '("DarkGoldenrod2" box)
-        evil-insert-state-cursor  '("chartreuse3" (bar . 2))
-        evil-emacs-state-cursor   '("SkyBlue2" box)
-        evil-replace-state-cursor '("chocolate" (hbar . 2))
-        evil-visual-state-cursor  '("gray" (hbar . 2))
-        evil-motion-state-cursor  '("plum3" box))
-  
-  (setcdr evil-insert-state-map nil)
-  (define-key evil-insert-state-map [escape] 'evil-normal-state)
-  (evil-mode 1));; end of leaf evil
+  (leaf evil
+    :require evil evil-core evil-common
+    :config
+    ;; 切换至normal模式时，光标会回退一位（与vim行为保持一致）
+    (setq evil-move-cursor-back t)
+    (evil-declare-key 'normal org-mode-map
+      ;;smarter behaviour on headlines 
+      "$" 'org-end-of-line
+      "^" 'org-beginning-of-line 
+      (kbd "TAB") 'org-cycle);; ditto
+    
+    (setq evil-normal-state-cursor  '("DarkGoldenrod2" box)
+          evil-insert-state-cursor  '("chartreuse3" (bar . 2))
+          evil-emacs-state-cursor   '("SkyBlue2" box)
+          evil-replace-state-cursor '("chocolate" (hbar . 2))
+          evil-visual-state-cursor  '("gray" (hbar . 2))
+          evil-motion-state-cursor  '("plum3" box))
+    
+    (setcdr evil-insert-state-map nil)
+    (define-key evil-insert-state-map [escape] 'evil-normal-state)
+    (evil-mode 1));; end of leaf evil
 
 (provide 'init-evil)
 ;;; init-evil.el ends here

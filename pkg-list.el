@@ -78,6 +78,7 @@
       :type git :host gitlab
       :repo "OlMon/consult-projectile"
       :branch "master"))
+    (vterm . nil)
     
     ;; init-roam
     (org-roam . nil)
