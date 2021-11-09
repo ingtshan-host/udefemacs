@@ -34,7 +34,8 @@
     (separate-inline
      . (separate-inline 
              :type git :host github 
-             :repo "ingtshan/separate-inline.el")
+             :repo "ingtshan/separate-inline.el"
+             :branch "devel")
 
     ;; init-nano
     (nano-emacs

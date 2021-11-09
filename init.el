@@ -88,7 +88,7 @@
 (require 'init-evil)
 
 ;; final
-;; (require 'init-patch)
+;;(require 'init-patch)
 
 ;; useful function
 
