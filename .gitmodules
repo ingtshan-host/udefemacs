@@ -13,3 +13,9 @@
 [submodule "etc/extend/cache-path-from-shell"]
 	path = etc/extend/cache-path-from-shell
 	url = git@github.com:manateelazycat/cache-path-from-shell.git
+[submodule "etc/extend/format-inline.el"]
+	path = etc/extend/format-inline.el
+	url = git@github.com:ingtshan/format-inline.el.git
+[submodule "etc/extend/separate-inline.el"]
+	path = etc/extend/separate-inline.el
+	url = git@github.com:ingtshan/separate-inline.el.git

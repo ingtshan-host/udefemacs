@@ -31,6 +31,10 @@
 
     ;; init-org
     (org . nil)    
+    (separate-inline
+     . (separate-inline 
+             :type git :host github 
+             :repo "ingtshan/separate-inline.el")
 
     ;; init-nano
     (nano-emacs

@@ -183,7 +183,34 @@
      '(org-level-8
        ((t (:inherit outline-8 :height 1.2  :foreground "#66D9EF"))))
      
-     )))
+     )
+    
+    (require 'cl)   ; for delete*
+
+    ;; change default color of emphasis below
+    (setq org-emphasis-alist
+          (cons '("+" '(:strike-through t :foreground "gray"))
+                (delete* "+" org-emphasis-alist :key 'car :test 'equal)))
+    (setq org-emphasis-alist
+          (cons '("*" '(:emphasis t :foreground "#E6DB74"))
+                (delete* "*" org-emphasis-alist :key 'car :test 'equal)))
+    (setq org-emphasis-alist
+          (cons '("/" '(:italic t :foreground "#66D9EF"))
+                (delete* "/" org-emphasis-alist :key 'car :test 'equal)))
+    ))
+
+(leaf separate-inline
+  :ensure nil
+  :straight (separate-inline 
+             :type git :host github 
+             :repo "ingtshan/separate-inline.el")
+  :hook ((org-mode-hook . separate-inline-mode)
+         (org-mode-hook
+          .
+          (lambda ()
+            (add-hook 'separate-inline-mode-hook
+                      'separate-inline-use-default-rules-for-org-local
+                      nil 'make-it-local)))))
 
 (provide 'init-org)
 ;;; init-org.el ends here

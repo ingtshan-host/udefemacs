@@ -72,6 +72,7 @@
    ;; Permanently indent with spaces, never with TABs
    indent-tabs-mode nil)
   
+  
   (setq
    adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
    adaptive-fill-first-line-regexp "^* *$"
