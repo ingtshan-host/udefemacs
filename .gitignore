@@ -4,3 +4,6 @@ straight/
 
 # data file
 var/
+
+# complie file
+*.elc
