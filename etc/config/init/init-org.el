@@ -52,12 +52,12 @@
           (kill-region beg end)))))
   )
 
-(leaf org-persist
-  :ensure nil
-  :straight nil
-  :custom
-  ((org-persist-directory
-    . `,(expand-file-name "var/org-persist/" user-emacs-directory))))
+;; (leaf org-persist
+;;   :ensure nil
+;;   :straight nil
+;;   :custom
+;;   ((org-persist-directory
+;;     . `,(expand-file-name "var/org-persist/" user-emacs-directory))))
 
 ;; org src code block
 (leaf org-src
@@ -113,8 +113,8 @@
       (set-face-attribute 'org-block-end-line nil             :extend t))
 
     (set-face 'org-checkbox                            'nano-face-faded)
-    (set-face 'org-checkbox-statistics-done            'nano-face-faded)
-    (set-face 'org-checkbox-statistics-todo            'nano-face-faded)
+    ;; (set-face 'org-checkbox-statistics-done            'nano-face-faded)
+    ;; (set-face 'org-checkbox-statistics-todo            'nano-face-faded)
     (set-face 'org-clock-overlay                       'nano-face-faded)
     (set-face 'org-code                                'nano-face-faded)
     (set-face 'org-column                              'nano-face-faded)
@@ -161,7 +161,7 @@
     (set-face 'org-tag-group                           'nano-face-faded)
     (set-face 'org-target                              'nano-face-faded)
     (set-face 'org-time-grid                           'nano-face-faded)
-    (set-face 'org-todo                              'nano-face-salient)
+    ;; (set-face 'org-todo                              'nano-face-salient)
     (set-face 'org-upcoming-deadline                 'nano-face-default)
     (set-face 'org-verbatim                           'nano-face-popout)
     (set-face 'org-verse                               'nano-face-faded)

@@ -84,6 +84,7 @@
 ;; Noting sys
 (require 'init-roam)
 (require 'init-bujo)
+(require 'init-timetask)
 
 (require 'init-evil)
 

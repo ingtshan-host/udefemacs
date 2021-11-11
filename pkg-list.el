@@ -26,6 +26,8 @@
     (super-save . nil)
 
     ;; init-editor
+    (avy . nil)
+    (ace-pinyin . nil)
     (indent-guide . nil)
     (markdown-mode . nil)
 
