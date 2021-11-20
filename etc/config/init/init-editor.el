@@ -62,6 +62,22 @@
   );; end of +unit-cursor-movement
 
 
+(leaf sis
+  :config
+  (sis-ism-lazyman-config
+   "com.apple.keylayout.US"
+   "com.sogou.inputmethod.sogou.pinyin")
+
+  ;; enable the /cursor color/ mode
+  ;;(sis-global-cursor-color-mode t)
+  ;; enable the /respect/ mode
+  (sis-global-respect-mode t)
+  ;; enable the /context/ mode for all buffers
+  (sis-global-context-mode t)
+  ;; enable the /inline english/ mode for all buffers
+  ;;(sis-global-inline-mode t)
+  )
+
 
 (provide 'init-editor)
 ;;; init-editor.el ends here

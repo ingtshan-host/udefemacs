@@ -24,20 +24,25 @@
     (transpose-frame . nil)
     (ace-window . nil)
     (super-save . nil)
+    (auto-save
+     .
+     (auto-save :type git :host github
+                :repo "manateelazycat/auto-save"))
 
     ;; init-editor
     (avy . nil)
     (ace-pinyin . nil)
     (indent-guide . nil)
     (markdown-mode . nil)
+    (sis . nil)
 
     ;; init-org
-    (org . nil)    
+    (org . nil)
     (separate-inline
-     . (separate-inline 
-             :type git :host github 
-             :repo "ingtshan/separate-inline.el"
-             :branch "devel")
+     . (separate-inline
+        :type git :host github
+        :repo "ingtshan/separate-inline.el"
+        :branch "devel"))
 
     ;; init-nano
     (nano-emacs
@@ -86,48 +91,53 @@
       :repo "OlMon/consult-projectile"
       :branch "master"))
     (vterm . nil)
-    
+
     ;; init-roam
     (org-roam . nil)
 
     ;; init-bujo
-    
+
+    ;; init-timetask
+    (org-super-agenda . nil)
+
     ;; init-evil
     (general . nil)
     (evil . nil)
-    
+
     ;; init-patch
 
-    
+
     );; defconst ends here
   "all the third package I need here"
   )
 
 (defun install-my-pkg()
   "install all my pkg"
-  (prog1 "All done"
-    ;;clone all
-    (dolist (pkg my-pkg-list)
-      (straight-use-package
-       (if (cdr pkg) `(quote ,(cdr pkg)) (car pkg))
-       nil t))
-    ;; load to path
-    ;; load init lib
-    (add-subdirs-to-load-path
-     (expand-file-name "straight/repos" user-emacs-directory))
+  (message "Installing pkg ... ")
+  (message
+   (prog1 "All done"
+     ;;clone all
+     (dolist (pkg my-pkg-list)
+       (straight-use-package
+        (if (cdr pkg) `(quote ,(cdr pkg)) (car pkg))
+        nil t))
+     ;; load to path
+     ;; load init lib
+     (add-subdirs-to-load-path
+      (expand-file-name "straight/repos" user-emacs-directory))
 
-    ;; build all
-    (dolist (pkg my-pkg-list)
-      ;; only clone
-      (straight-use-package
-       (if (cdr pkg) `(quote ,(cdr pkg)) (car pkg))))
+     ;; build all
+     (dolist (pkg my-pkg-list)
+       ;; only clone
+       (straight-use-package
+        (if (cdr pkg) `(quote ,(cdr pkg)) (car pkg))))
 
-    ;; leaf load
-    ;; (dolist (pkg my-pkg-list)    
-    ;;   (if (cdr pkg)
-    ;;       (eval `(leaf ,(car pkg) :ensure nil :straight ,(cdr pkg)))
-    ;;     (eval `(leaf ,(car pkg)))))
-    );;manually do here
+     ;; leaf load
+     ;; (dolist (pkg my-pkg-list)
+     ;;   (if (cdr pkg)
+     ;;       (eval `(leaf ,(car pkg) :ensure nil :straight ,(cdr pkg)))
+     ;;     (eval `(leaf ,(car pkg)))))
+     ));;manually do here
   )
 
 ;; to for add load-path recursion like -r
@@ -144,7 +154,8 @@
 
 (require 'init-pkg)
 
-(install-my-pkg)
+(when (and (boundp 'pkg--do-install) pkg--do-install)
+  (install-my-pkg))
 
 ;;(provide 'pkg-list)
 ;;; pkg-list.el ends here

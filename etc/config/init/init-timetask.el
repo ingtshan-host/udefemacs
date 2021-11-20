@@ -2,7 +2,7 @@
 
 ;;; Commentary:
 
-;; 
+;;
 
 ;;; Code:
 
@@ -94,7 +94,7 @@
                     (file-name-as-directory
                      org-roam-directory))
                    (file-name-directory buffer-file-name))))
-    
+
     (save-excursion
       (goto-char (point-min))
       (let* ((tags (task/buffer-tags-get))
@@ -162,6 +162,7 @@ Refer to `org-agenda-prefix-format' for more information."
         (s-truncate len (s-pad-right len " " result))
       result)))
 
+
 (leaf-unit timetask
 
   ;; enable habit
@@ -171,7 +172,7 @@ Refer to `org-agenda-prefix-format' for more information."
     (setq org-habit-show-only-for-today t
 	      org-habit-show-done-always-green t
           org-habit-graph-column 55))
-  
+
   (setq org-todo-keywords
         '((sequence
            ;; A task that needs doing & is ready to do
@@ -188,7 +189,7 @@ Refer to `org-agenda-prefix-format' for more information."
            "|"
            " DONE(d)"
            ;; Task was cancelled, aborted or is no longer applicable
-           " CANCELED(c@)") 
+           " CANCELED(c@)")
           (sequence
            " FIXME(f)"
            " BREAK(b)"
@@ -196,10 +197,11 @@ Refer to `org-agenda-prefix-format' for more information."
            "|"
            " Memo(M)"
            " NOTE(N)"
+           " FIXED(F)"
            " REVIEW(r)"
            )
           )) ; Task was completed
-  
+
   ;; hid to :LOGBOOK:
   (setq org-log-into-drawer t)
 
@@ -207,7 +209,7 @@ Refer to `org-agenda-prefix-format' for more information."
   (add-hook 'find-file-hook #'task/project-update-tag)
   (add-hook 'before-save-hook #'task/project-update-tag)
   (advice-add 'org-agenda :before #'task/agenda-files-update)
-  
+
   ;; %c   the category of the item, "Diary" for entries from the diary,
   ;; or as given by the CATEGORY keyword or derived from the file name
   ;; %e   the effort required by the item
@@ -219,19 +221,28 @@ Refer to `org-agenda-prefix-format' for more information."
   ;; %b   show breadcrumbs, i.e., the names of the higher levels
   ;; %(expression) Eval EXPRESSION and replace the control string
   ;; by the result
-  
+
   (setq org-agenda-prefix-format
         '((agenda . " %i %(task/agenda-category 12)%?-12t")
           (todo . " %i %(task/agenda-category 12) ")
           (tags . " %i %(task/agenda-category 12) ")
           (search . " %i %(task/agenda-category 12) ")))
-  
+
   (setq org-agenda-hide-tags-regexp (regexp-opt '("project")))
   )
+
+(leaf org-agenda :ensure nil :straight nil
+  :bind ((org-agenda-mode-map
+          ("j" . org-agenda-next-line)
+          ("k" . org-agenda-previous-line)
+          ("n" . org-roam-node-find))))
 
 (leaf org-super-agenda
   :require org-habit
   :hook(after-init-hook . org-super-agenda-mode)
+  :bind((org-super-agenda-header-map
+         ("j" . org-agenda-next-line)
+         ("k" . org-agenda-previous-line)))
   :config
   (setq
    org-agenda-skip-scheduled-if-done t
@@ -270,14 +281,14 @@ Refer to `org-agenda-prefix-format' for more information."
                   '("Deadline:  " "In %3d d.: " "%2d d. ago: "))
                  (org-agenda-time-grid
                   '((daily today require-timed)
-                    (600 800 1000 1200 1400 1600 1800 2000)
+                    (600 800 1000 1200 1400 1600 1800 2000 2100 2200)
                     "------ "
                     ""))
                  (org-super-agenda-groups
                   '((:name "Today List"
                            :time-grid t
                            :todo t
-                           :date today                           
+                           :date today
                            :scheduled today
                            :order 1)
                     ))))
@@ -341,7 +352,10 @@ Refer to `org-agenda-prefix-format' for more information."
           ("i" "ALL INPROCESS OF TASKS"
            search "+{^\\*+\\s-+\\( INPROCESS\\)\\s-}")
 
-          )))
+          ))
+  ;; display on Emacs Start up
+  (add-hook 'emacs-startup-hook (lambda () (org-agenda nil "u")))
+  )
 
 (provide 'init-timetask)
 ;;; init-timetask.el ends here

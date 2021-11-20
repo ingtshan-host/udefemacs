@@ -59,6 +59,7 @@
     "nj"    '(org-roam-dailies-goto-today :wk "jump to today")
     "nr"    '(ns/org-roam-rg-search :wk "rg search your roam note")
     "nf"    '(ns/org-roam-rg-file-search :wk "find roam file")
+    "nc"    'org-roam-dailies-capture-today
     "nb"    '(:wk "note bujo")
     "nbj"   '(bujo/today-other-window :wk "bujo jump today")
     "nbf"   '(bujo/find-task :wk "bujo task current moth")

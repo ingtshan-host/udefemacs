@@ -24,7 +24,10 @@
   (setq
    org-roam-directory (file-truename "~/org/roam-v2")
    ;;(expand-file-name "roam-v2" =org-dir)
-   org-roam-v2-ack t)
+   org-roam-v2-ack t
+   ;;fix some problem
+   ;;org-roam-db-update-on-save nil
+   )
   
   :config 
   (unless (file-exists-p org-roam-directory)
