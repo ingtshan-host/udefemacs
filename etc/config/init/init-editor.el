@@ -6,6 +6,10 @@
 
 ;;; Code:
 
+;; auto indent
+(leaf aggressive-indent
+  :hook ((emacs-lisp-mode-hook . aggressive-indent-mode)))
+
 (leaf indent-guide
   :hook ((emacs-lisp-mode-hook . indent-guide-mode)))
 
@@ -78,6 +82,57 @@
   ;;(sis-global-inline-mode t)
   )
 
+(leaf nlinum
+  :hook ((org-mode-hook . nlinum-mode)
+         (prog-mode-hook . nlinum-mode))
+  :config
+  ;; fix hl
+  (leaf nlinum-hl :require t)
+  (setq nlinum-highlight-current-line t)
+  (defconst my-nlinum-format-function
+    (lambda (line width)
+      (let* ((is-current-line (= line nlinum--current-line))
+             (str (format nlinum-format line)))
+        ;; use -> as current line
+        ;; or change to any symbol you like
+        ;; here
+        ;; (and is-current-line (setq str "->"))
+        (when is-current-line
+          (let* ((ms "->")
+                 (el (- (length str) 2)))
+            (while (> el 0)
+              (setq ms (concat "-" ms))
+              (setq el (1- el)))
+            (setq str ms)))
+        (when (< (length str) width)
+          ;; Left pad to try and right-align the line-numbers.
+          (setq str (concat (make-string (- width (length str)) ?\ ) str)))
+        
+        (put-text-property 0 width 'face
+                           (if (and nlinum-highlight-current-line
+                                    is-current-line)
+                               'nlinum-current-line
+                             'linum)
+                           str)
+        str)))
+  ;;take effect
+  (setq nlinum-format-function my-nlinum-format-function))
+
+(leaf-unit editor-bas
+
+  (setq-default
+   major-mode 'text-mode
+   fill-column 128
+   tab-width 4
+   ;; Permanently indent with spaces, never with TABs
+   indent-tabs-mode nil)
+
+  (setq
+   adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
+   adaptive-fill-first-line-regexp "^* *$"
+   sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
+   sentence-end-double-space nil)
+  )
 
 (provide 'init-editor)
 ;;; init-editor.el ends here

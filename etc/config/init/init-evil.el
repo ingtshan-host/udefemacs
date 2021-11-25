@@ -50,8 +50,10 @@
     ;;"tn"    'linum-mode
     ;;"wc"    'count-words
     ;;"nw"    'widen
-    "o"     '(:wk "OS command")
+    "o"     '(:wk "Open operation or OS command")
     "of"    'reveal-in-osx-finder
+    "ol"    'ns/open-inline-link
+    "ob"    'org-mark-ring-goto
     "!"     'shell-command
     "n"     '(:wk "note org-roam and bujo")
     "nn"    '(org-roam-node-find :wk "node")

@@ -60,28 +60,7 @@
         inhibit-compacting-font-caches t  ; Don’t compact font caches during GC.
         delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder
         ;; Show path if names are same
-        uniquify-buffer-name-style 'post-forward-angle-brackets)
-  )
-
-(leaf-unit editor-bas
-
-  (setq-default
-   major-mode 'text-mode
-   fill-column 128
-   tab-width 4
-   ;; Permanently indent with spaces, never with TABs
-   indent-tabs-mode nil)
-
-  (setq
-   adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
-   adaptive-fill-first-line-regexp "^* *$"
-   sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
-   sentence-end-double-space nil)
-  )
-
-;; auto indent
-(leaf aggressive-indent
-  :hook ((emacs-lisp-mode-hook . aggressive-indent-mode)))
+        uniquify-buffer-name-style 'post-forward-angle-brackets))
 
 ;; snippet
 ;; `yasnippet'

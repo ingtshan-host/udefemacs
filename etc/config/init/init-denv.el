@@ -71,7 +71,7 @@
       (vterm-send-key "u" nil nil t)
       (execute-kbd-macro (format "cd %s
 " dir))))
-
+  
   (defun denv/vterm-current-dir-other-window()
     "use one vterm process and cd to current dir"
     (interactive)

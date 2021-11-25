@@ -45,19 +45,63 @@
   (setq org-src-fontify-natively t)
   (setq org-agenda-window-setup 'current-window)
 
+  ;; no blank line between insert heading
+  ;; The default value is '((heading . auto) (plain-list-item . auto)),
+  (setf org-blank-before-new-entry
+        '((heading . nil) (plain-list-item . nil)))
+
   ;; (setq org-directory "~/iCloud/org/")
   ;; (setq org-agenda-files '("~/iCloud/org/"))
 
-  (defun ns/org-kill-link-at-point ()
-    (interactive)
-    (when (eq major-mode 'org-mode)
-      (let* ((context (org-element-context))
-             (type (org-element-type context))
-             (beg (org-element-property :begin context))
-             (end (org-element-property :end context)))
-        (when (eq type 'link)
-          (kill-region beg end)))))
-  )
+  ); end of leaf
+
+;; function of org
+
+(defun ns/org-kill-link-at-point ()
+  (interactive)
+  (when (eq major-mode 'org-mode)
+    (let* ((context (org-element-context))
+           (type (org-element-type context))
+           (beg (org-element-property :begin context))
+           (end (org-element-property :end context)))
+      (when (eq type 'link)
+        (kill-region beg end)))))
+
+(defun ns/open-inline-link ()
+  "Follow the next link on the same line"
+  (interactive)
+
+  (condition-case nil
+      (org-open-at-point)
+    (error
+     (save-excursion
+       (let ((b (line-beginning-position))
+             (e (line-end-position)))
+         (org-next-link)
+         (cond ((< (point) e)
+                (org-open-at-point))
+               (t (org-next-link t)
+                  (if (< b (point))
+                      (org-open-at-point)
+                    (message "no link on current line")))))))))
+
+(defun ns/org-insert-src-block (src-code-type)
+  "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
+  (interactive
+   (let ((src-code-types
+	      '("emacs-lisp" "rust" "python" "C" "shell" "java" "js" "clojure" "C++" "css"
+	        "calc" "asymptote" "dot" "gnuplot" "ledger" "lilypond" "mscgen"
+	        "octave" "oz" "plantuml" "R" "sass" "screen" "sql" "awk" "ditaa"
+	        "haskell" "latex" "lisp" "matlab" "ocaml" "org" "perl" "ruby"
+	        "scheme" "sqlite" "html")))
+     (list (ido-completing-read "Source code type: " src-code-types))))
+  (save-excursion
+    (newline-and-indent)
+    (insert (format "#+begin_src %s\n" src-code-type))
+    (newline-and-indent)
+    (insert "#+end_src\n")
+    (previous-line 2)
+    (org-edit-src-code)))
 
 ;; (leaf org-persist
 ;;   :ensure nil
@@ -83,25 +127,6 @@
   ;;          (org-src-tab-acts-natively . t)
   ;;          (org-edit-src-content-indentation  . 0)
   ;;          )
-
-  :config
-  (defun org/insert-src-block (src-code-type)
-    "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
-    (interactive
-     (let ((src-code-types
-	        '("emacs-lisp" "rust" "python" "C" "shell" "java" "js" "clojure" "C++" "css"
-	          "calc" "asymptote" "dot" "gnuplot" "ledger" "lilypond" "mscgen"
-	          "octave" "oz" "plantuml" "R" "sass" "screen" "sql" "awk" "ditaa"
-	          "haskell" "latex" "lisp" "matlab" "ocaml" "org" "perl" "ruby"
-	          "scheme" "sqlite" "html")))
-       (list (ido-completing-read "Source code type: " src-code-types))))
-    (save-excursion
-      (newline-and-indent)
-      (insert (format "#+begin_src %s\n" src-code-type))
-      (newline-and-indent)
-      (insert "#+end_src\n")
-      (previous-line 2)
-      (org-edit-src-code)))
   )
 
 (leaf-unit org-nano-theme
