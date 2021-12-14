@@ -19,3 +19,12 @@
 [submodule "etc/extend/separate-inline.el"]
 	path = etc/extend/separate-inline.el
 	url = git@github.com:ingtshan/separate-inline.el.git
+[submodule "etc/extend/org-appear"]
+	path = etc/extend/org-appear
+	url = git@github.com:ingtshan/org-appear.git
+[submodule "etc/extend/org-anki"]
+	path = etc/extend/org-anki
+	url = git@github.com:ingtshan/org-anki.git
+[submodule "etc/extend/nano-emacs"]
+	path = etc/extend/nano-emacs
+	url = git@github.com:ingtshan/nano-emacs.git

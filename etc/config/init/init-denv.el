@@ -80,5 +80,11 @@
       (denv/vterm-cd dir)))
   )
 
+;; better debug for emacs
+(leaf font-lock-studio
+  :straight (font-lock-studio
+             :type git :host github
+             :repo "Lindydancer/font-lock-studio"))
+
 (provide 'init-denv)
 ;;; init-denv.el ends here

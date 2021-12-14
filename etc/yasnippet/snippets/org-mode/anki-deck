@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: anki-deck
+# key: adck
+# --
+#+ANKI_DECK: 

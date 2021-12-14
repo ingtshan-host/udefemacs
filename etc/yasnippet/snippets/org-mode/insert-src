@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: insert-src
+# key: <s
+# --
+
+#+begin_src $0
+
+#+end_src

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: latex-matrix 
+# key: lmatrix
+# --
+\begin{$1matrix}
+$0
+\end{$1matrix}

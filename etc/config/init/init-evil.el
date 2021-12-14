@@ -93,6 +93,20 @@
     ",g"   '(:wk "org-mode writing operation")
     ",gp"  'org-promote-subtree
     ",gd"  'org-demote-subtree
+    ",gs"  '(org-appear-toggle :wk "show org elemen")
+    ",gw"  '(org-refile :wk "C-c C-w")
+    ",ge"  'ns/org-emphasize-dwim
+    ",gl"  'ns/study-in-right-way-insert
+    ",gi"  '(:wk "org insert")
+    ",gih" 'org-insert-subheading
+    ",gic" 'ns/org-insert-src-block-with-enter-edit
+    
+    ",a"   '(:wk "org-anki")
+    ",au"  'org-anki-update-all
+    ",aa"  '(org-anki-sync-entry :wk "add entry to anki")
+    ",ad"  'org-anki-delete-entry
+    ",ac"  'org-anki-cloze-dwim
+    ",af"  '(org-anki-browse-entry :wk "find note in anki")
     )
   )
 
@@ -112,7 +126,7 @@
     ;;smarter behaviour on headlines 
     "$" 'org-end-of-line
     "^" 'org-beginning-of-line 
-    (kbd "TAB") 'org-cycle);; ditto
+    (kbd "TAB") 'ns/org-cycle);; ditto
   
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'evil-normal-state)

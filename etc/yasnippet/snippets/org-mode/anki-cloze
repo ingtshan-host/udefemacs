@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: anki-cloze 
+# key: clz
+# --
+{{c1$3::${1:答案} ::… ${2:提示}}}$0

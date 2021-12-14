@@ -142,6 +142,10 @@
   :custom ((leaf-defaults . '(:ensure nil :straight t)))
   :bind (("H-f l" . leaf-find-with-unit))
   :config
+  ;;straight user info
+  (custom-set-variables '(straight-host-usernames
+                          '((github    . "ingtshan"))))
+  ;;extern my leaf-unit
   (defcustom leaf-find-unit-regexp ".*([[:space:]]*leaf-unit[[:space:]]+\\(%s\\)"
     "The regexp used by `leaf-find-with-unir' to search for a leaf block.
 Note it must contain a `%s' at the place where `format'
@@ -249,6 +253,22 @@ Generate code like (leaf base-name-unit :config body)"
       (match-string-no-properties 0)
       ))
   )
+
+(defun pkg/straight-update-one-package (package)
+  (interactive (list (straight--select-package "Update package (pull and rebuild: )"
+                                               #'straight--installed-p)))
+  (straight-pull-package package)
+  (straight-rebuild-package package))
+
+(defun pkg/straight-delete-build-repo (package)
+  (interactive
+   (list (straight--select-package "Select package to delete it's repo"
+                                   #'straight--installed-and-buildable-p)))
+
+  (let ((repo-path (straight--repos-dir package)))
+    (when (y-or-n-p (format "Delete %s:%S ?" package repo-path))
+      (delete-directory repo-path 'recursive 'trash)
+      (message "%S deleted" repo-path))))
 
 (provide 'init-pkg)
 ;;; init-pkg.el ends here

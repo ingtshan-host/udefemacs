@@ -85,7 +85,6 @@
   (require 'init-pkg)        ;pkg management
   (require 'init-bas)        ;basic config
   (require 'init-editor)     ;basic editor feature
-  (require 'init-org)        ;basic org-mode
   ;; UI setting
   (require 'init-nano)
   (require 'init-fonts)
@@ -97,6 +96,7 @@
   (require 'init-denv)       ;basic tool env
 
   ;; Noting sys
+  (require 'init-org)        ;basic org-mode
   (require 'init-roam)
   (require 'init-bujo)
   (require 'init-timetask)

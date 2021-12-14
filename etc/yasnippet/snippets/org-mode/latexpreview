@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: latexpreview
+# key: lpre
+# --
+#+startup: latexpreview

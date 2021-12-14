@@ -18,7 +18,6 @@
     (no-littering . nil)       ;etc var
 
     ;; init-bas
-    (aggressive-indent . nil)
     (yasnippet . nil)
     (yasnippet-snippets . nil)
     (transpose-frame . nil)
@@ -32,9 +31,13 @@
     ;; init-editor
     (avy . nil)
     (ace-pinyin . nil)
+    (aggressive-indent . nil)
     (indent-guide . nil)
     (markdown-mode . nil)
     (sis . nil)
+    (nlinum . nil)
+    (nlinum-hl . nil)
+    
 
     ;; init-org
     (org . nil)
@@ -43,13 +46,33 @@
         :type git :host github
         :repo "ingtshan/separate-inline.el"
         :branch "devel"))
+    (org-appear
+     . (org-appear :type git :host github
+                   :repo "ingtshan/org-appear"))
+    
+    (org-latex-impatient
+     .
+     (org-latex-impatient
+      :type git :host github 
+      :repo "ingtshan/org-latex-impatient"))
+    
+    (org-yt
+     .
+     (org-yt :type git :host github
+             :repo "TobiasZawada/org-yt"))
+
+    (org-anki
+     .
+     (org-anki
+      :type git :host github
+      :repo "ingtshan/org-anki"
+      :branch "devel"))
 
     ;; init-nano
     (nano-emacs
-     .
-     (nano-emacs
-      :type git :host github
-      :repo "rougier/nano-emacs"))
+     . (nano-emacs
+        :type git :host github
+        :repo "rougier/nano-emacs"))
 
     ;; init-fonts
     (align . nil)
@@ -91,6 +114,11 @@
       :repo "OlMon/consult-projectile"
       :branch "master"))
     (vterm . nil)
+    (font-lock-studio
+     .
+     (font-lock-studio
+      :type git :host github
+      :repo "Lindydancer/font-lock-studio"))
 
     ;; init-roam
     (org-roam . nil)
