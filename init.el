@@ -6,28 +6,44 @@
 
 ;;; Code:
 
+;; quick config
+(defun config/init-file-other-window()
+  "Open init.el buffer in other window"
+  (interactive)
+  (find-file-other-window
+   (expand-file-name "init.el" user-emacs-directory)))
+
+;; tool
+(defmacro locate-user-file-turename  (rpath)
+  "Path translate"
+  `(expand-file-name ,rpath user-emacs-directory))
+
+;; to for add load-path recursion like -r
+(unless (boundp 'add-subdirs-to-load-path)
+  (defun add-subdirs-to-load-path(dir)
+    "Recursive add directories to `load-path`."
+    (let ((default-directory (file-name-as-directory dir)))
+      (add-to-list 'load-path dir)
+      (normal-top-level-add-subdirs-to-load-path))))
+
+;; stop emacs automatically editing .emacs
+(setq custom-file (locate-user-file-turename  "var/custom.el"))
+
+;; version check
+(when (version< emacs-version "26.1")
+  (error "This requires Emacs 26.1 and above!"))
+
+;; encoding
+;; UTF-8 as the default coding system
+(when (fboundp 'set-charset-priority)
+  (set-charset-priority 'unicode))
+
 (let (;; 加载的时候临时增大`gc-cons-threshold'以加速启动速度。
       (gc-cons-threshold most-positive-fixnum)
       ;; 清空避免加载远程文件的时候分析文件。
       (file-name-handler-alist nil))
 
   ;; Emacs配置文件内容写到下面.
-
-  ;; quick config
-  (defun config/init-file-other-window()
-    "Open init.el buffer in other window"
-    (interactive)
-    (find-file-other-window
-     (expand-file-name "init.el" user-emacs-directory)))
-
-  ;; version check
-  (when (version< emacs-version "26.1")
-    (error "This requires Emacs 26.1 and above!"))
-
-  ;; encoding
-  ;; UTF-8 as the default coding system
-  (when (fboundp 'set-charset-priority)
-    (set-charset-priority 'unicode))
 
   ;; very basic default
 
@@ -46,31 +62,20 @@
    inhibit-startup-screen t
    )
 
-
-  ;; stop emacs automatically editing .emacs
-  (setq custom-file (expand-file-name "var/custom.el" user-emacs-directory))
-
-  ;; to for add load-path recursion like -r
-  (unless (boundp 'add-subdirs-to-load-path)
-    (defun add-subdirs-to-load-path(dir)
-      "Recursive add directories to `load-path`."
-      (let ((default-directory (file-name-as-directory dir)))
-        (add-to-list 'load-path dir)
-        (normal-top-level-add-subdirs-to-load-path))))
-
   ;; for macOS
   ;; fresh shell env once for all
   (mapc
    (lambda (path)
      (add-to-list 'load-path path))
    (list ;; path need to load here
-    (expand-file-name "etc/extend/exec-path-from-shell" user-emacs-directory)
-    (expand-file-name "etc/extend/cache-path-from-shell" user-emacs-directory)))
+    (locate-user-file-turename  "etc/extend/exec-path-from-shell")
+    (locate-user-file-turename  "etc/extend/cache-path-from-shell")
+    ))
   (require 'cache-path-from-shell)
 
   ;; load init lib
   (add-subdirs-to-load-path
-   (expand-file-name "etc/config" user-emacs-directory))
+   (locate-user-file-turename  "etc/config"))
 
   ;; load extern lib
   ;; sometime you need compile mannualy
@@ -80,14 +85,17 @@
    (lambda (path)
      (add-to-list 'load-path path))
    (list ;; path need to load here
-    (expand-file-name "etc/extend/reveal-in-osx-finder" user-emacs-directory)))
+    (locate-user-file-turename "etc/extend/reveal-in-osx-finder")))
 
   (require 'init-pkg)        ;pkg management
+  (require 'init-defmacro)   ;my defmacro
   (require 'init-bas)        ;basic config
   (require 'init-editor)     ;basic editor feature
+
   ;; UI setting
   (require 'init-nano)
   (require 'init-fonts)
+  ;; (require 'init-layout)
 
   (require 'init-company-search)
   (require 'init-icon)       ;icon and emoj

@@ -18,6 +18,7 @@
     :states '(normal visual))
   ;; Spaces keybinds for vanilla Emacs
   (gaeric-space-leader-def
+    "SPC"   'org-ctrl-c-ctrl-c
     "a"     'org-agenda
     "f"     '(:wk "file operation or find with jump")
     "ff"    'find-file
@@ -26,11 +27,12 @@
     "fS"    '(save-some-buffers :wk "save all modified buffers")
     "fl"    'leaf-find-with-unit
     "fi"    'config/init-file-other-window
-    "fp"    '(:wk "projectile operation")
-    "fpf"   'projectile-find-file
-    "fpd"   'projectile-find-dir
-    "fps"   'projectile-switch-project
-    "fpr"   'denv/projectile-rg-search
+    "p"    '(:wk "projectile operation")
+    "pf"   '(denv/projectile-find :wk "projectile find file")
+
+    "pd"   'projectile-find-dir
+    "ps"   'projectile-switch-project
+    "pr"   'denv/projectile-rg-search
     ;;"fed"   'open-init-file
     "b"     '(:wk "buffer operation")
     "bo"    'switch-to-buffer-other-window
@@ -55,17 +57,30 @@
     "ol"    'ns/open-inline-link
     "ob"    'org-mark-ring-goto
     "!"     'shell-command
+
     "n"     '(:wk "note org-roam and bujo")
     "nn"    '(org-roam-node-find :wk "node")
     "ni"    '(org-roam-node-insert :wk "insert node")
     "nj"    '(org-roam-dailies-goto-today :wk "jump to today")
     "nr"    '(ns/org-roam-rg-search :wk "rg search your roam note")
     "nf"    '(ns/org-roam-rg-file-search :wk "find roam file")
-    "nc"    'org-roam-dailies-capture-today
-    "nb"    '(:wk "note bujo")
-    "nbj"   '(bujo/today-other-window :wk "bujo jump today")
-    "nbf"   '(bujo/find-task :wk "bujo task current moth")
-    "nbm"   '(bujo/month-page-other-window :wk "bujo current moth")
+    "nq"    '(org-roam-dailies-capture-today :wk "quick note in tody")
+    "nc"    'org-capture
+    "nl"    'org-capture-goto-last-stored
+    "nk"    '(ns/org-roam-i-know :wk "I Konw!")
+    "nh"    'consult-org-heading
+
+    "j"     '(:wk "jump")
+    "ja"    'embark-act
+    "jd"    'embark-dwim
+    "jb"    'pop-global-mark
+    "jp"    'avy-pop-mark
+    "jg"    'consult-global-mark
+    "jc"    'ace-pinyin-dwim
+    "jl"    'avy-goto-line
+
+    "s"     '(:wk "search")
+    "sd"    'dash-at-point
     )
   ;; 将,键设置为另一个leader
   ;; 与编辑或编辑模式强相关的操作，诸如：org-mode下打开org-pomodoro、org-clock等
@@ -86,10 +101,18 @@
     "e"   '(:wk "eval operation")
     "ee"  'eval-last-sexp
     "eb"  'eval-buffer
+    
+    "h"   '(:wk "hight and search")
+    "hd"  'editor/hi-lock-regexp-dwim
+    "hu"  'editor/unhi-all-regexp
+    "hf"  'editor/hi-search-forward
+    "hb"  'editor/hi-search-backward
+    "hr"  'editor/hi-query-replace-regexp
     )
 
   ;; org special
   (general-evil-define-key '(normal visual) org-mode-map
+    ", TAB"'org-cycle
     ",g"   '(:wk "org-mode writing operation")
     ",gp"  'org-promote-subtree
     ",gd"  'org-demote-subtree
@@ -100,6 +123,8 @@
     ",gi"  '(:wk "org insert")
     ",gih" 'org-insert-subheading
     ",gic" 'ns/org-insert-src-block-with-enter-edit
+    ",git" 'org-time-stamp
+    ",gii" '((lambda () (interactive) (move-end-of-line 1) (org-insert-item t)) :wk "insert check item")
     
     ",a"   '(:wk "org-anki")
     ",au"  'org-anki-update-all

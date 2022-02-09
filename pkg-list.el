@@ -77,6 +77,8 @@
     ;; init-fonts
     (align . nil)
 
+    ;; init-layout.el
+
     ;; init-company-search
     (vertico . nil)
     (posframe . nil)
@@ -118,8 +120,12 @@
      .
      (font-lock-studio
       :type git :host github
-      :repo "Lindydancer/font-lock-studio"))
-
+      :repo "Lindydancer/font-lock-studio"))    
+    (dash-at-point
+     .
+     (dash-at-point
+      :type git :host github
+      :repo "ingtshan/dash-at-point"))
     ;; init-roam
     (org-roam . nil)
 

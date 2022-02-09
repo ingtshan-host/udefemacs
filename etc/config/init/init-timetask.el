@@ -177,30 +177,40 @@ Refer to `org-agenda-prefix-format' for more information."
         '((sequence
            ;; A task that needs doing & is ready to do
            " TODO(t)"
+           " FIXME(f)"
+           " BREAK(b)"
            " NEXT(n)"
            ;; A task that is in progress
            " INPROCESS(i)"
            ;; Something is holding up this task; or it is paused
            " WAITING(w@)"
            ;; An ongoing project that cannot be completed in one step
-           " PROJ(p)"
-           " Millstone(m)"
+           " PROJ(P)"
+           " NextMile(x)"
+           "❤ Love(L)"
            ;; Task successfully completed
            "|"
-           " DONE(d)"
+           " Milestone(X)"
            ;; Task was cancelled, aborted or is no longer applicable
-           " CANCELED(c@)")
-          (sequence
-           " FIXME(f)"
-           " BREAK(b)"
-           "❤ Love(l)"
-           "|"
+           " CANCELED(C@)"
            " Memo(M)"
            " NOTE(N)"
            " FIXED(F)"
-           " REVIEW(r)"
+           " DONE(d)"
+           " REVIEW(R)")          
+          (sequence
+           "Gance(1)" ;;初见知识点
+           "M deling(2)" ;;泛化理解
+           "Ne k(3)";;瓶颈
+           "Rep ting(4)";;重复训练
+           "Ntting(5)";;知识网，二阶知识
+           "|"
+           " PP(A)";;运用
+           "Recll(a)";;记忆，回忆
+           "Knwledge(O)";;知识    
            )
           )) ; Task was completed
+  
 
   ;; hid to :LOGBOOK:
   (setq org-log-into-drawer t)
@@ -354,7 +364,7 @@ Refer to `org-agenda-prefix-format' for more information."
 
           ))
   ;; display on Emacs Start up
-  (add-hook 'emacs-startup-hook (lambda () (org-agenda nil "u")))
+  ;; (add-hook 'emacs-startup-hook (lambda () (org-agenda nil "u")))
   )
 
 (provide 'init-timetask)

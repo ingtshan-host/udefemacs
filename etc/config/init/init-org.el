@@ -18,6 +18,7 @@
            (visual-line-mode)
            (make-local-variable 'word-wrap)
            (setq word-wrap nil)
+           (and (eq org-startup-folded 'content) (end-of-buffer))
            )))
 
   :bind((org-mode-map
@@ -51,7 +52,7 @@
 
   ;; better latex preview
   (setq org-preview-latex-default-process 'dvisvgm)
-  
+
   ;; (setq org-directory "~/iCloud/org/")
   ;; (setq org-agenda-files '("~/iCloud/org/"))
 
@@ -442,8 +443,7 @@ syntax."
          (call-interactively 'org-insert-subheading)
          (insert "答案\n")
          (call-interactively 'org-insert-subheading)
-         (insert "一阶训练：为什么\n")
-         (insert "答案:")
+         (insert "一阶训练：为什么？答案\n")
          (call-interactively
           'org-insert-heading-respect-content)
          (insert "一阶训练: 举其他例子"))
@@ -469,6 +469,7 @@ syntax."
 
     (insert arg)))
 
+(leaf org-journal)
 
 (provide 'init-org)
 ;;; init-org.el ends here

@@ -34,6 +34,22 @@
           (project (projectile-acquire-root)))
       (consult-ripgrep project))))
 
+(defun denv/projectile-find (&optional arg)
+  (interactive "P")
+  (let ((func 'projectile-find-file))
+
+    (and (eq (projectile-acquire-root) (file-truename "~"))
+         (setq func 'projectile-switch-project))
+    
+    (funcall-interactively func)))(lambda (&optional arg)
+  (interactive "P")
+  (let ((func 'projectile-find-file))
+
+    (and (eq (projectile-acquire-root) (file-truename "~"))
+         (setq func 'projectile-switch-project))
+    
+    (funcall-interactively func)))
+
 (leaf consult-projectile
   :after consult projectile
   :straight (consult-projectile
@@ -85,6 +101,11 @@
   :straight (font-lock-studio
              :type git :host github
              :repo "Lindydancer/font-lock-studio"))
+
+(leaf dash-at-point
+  :straight (dash-at-point
+             :type git :host github
+             :repo "ingtshan/dash-at-point"))
 
 (provide 'init-denv)
 ;;; init-denv.el ends here
